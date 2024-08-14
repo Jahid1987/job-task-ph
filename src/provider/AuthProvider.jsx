@@ -4,6 +4,8 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 import auth from "../firebase/firebase.config";
 
@@ -13,7 +15,10 @@ const AuthProvider = ({ children }) => {
 
   // social media providers
   // signing in user
-
+  function signInUser(email, password) {
+    setIsLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  }
   // registering user with email and pass
   function registerWithEmailPass(email, pass) {
     setIsLoading(true);
@@ -27,16 +32,15 @@ const AuthProvider = ({ children }) => {
     });
   }
 
-  // signing with google
-
   // sign out user from firebase
-
+  function logOutUser() {
+    return signOut(auth);
+  }
   // user  observer
   useEffect(() => {
     const unsubcribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
-
         setIsLoading(false);
       } else {
         setUser(currentUser);
@@ -50,8 +54,10 @@ const AuthProvider = ({ children }) => {
     user,
     setUser,
     isLoading,
+    signInUser,
     registerWithEmailPass,
     updateUserProfile,
+    logOutUser,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

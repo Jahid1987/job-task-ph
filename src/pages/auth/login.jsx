@@ -23,7 +23,6 @@ const Login = () => {
   // sign in registered user
   async function handleSignIn(data) {
     try {
-      console.log("ok");
       setisCreating(true);
       await signInUser(data.email, data.password);
       setisCreating(false);

@@ -120,11 +120,11 @@ const Register = () => {
           </div>
           <div className="form-control mt-6">
             {isCreating ? (
-              <button className="btn btn-sm md:btn-md  btn-outline w-full btn-warning text-white font-light">
+              <button className="btn btn-sm md:btn-md  btn-outline btn-success font-light">
                 <span className="loading loading-spinner loading-md"></span>
               </button>
             ) : (
-              <button className="btn btn-sm md:btn-md  btn-outline w-full btn-warning text-white font-light">
+              <button className="btn btn-sm md:btn-md  btn-outline btn-success font-light">
                 Register
               </button>
             )}

@@ -5,6 +5,8 @@ import {
   updateProfile,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
 import auth from "../firebase/firebase.config";
@@ -14,6 +16,7 @@ const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   // social media providers
+  const googleProvider = new GoogleAuthProvider();
   // signing in user
   function signInUser(email, password) {
     setIsLoading(true);
@@ -30,6 +33,12 @@ const AuthProvider = ({ children }) => {
       displayName: name,
       photoURL: photo,
     });
+  }
+
+  // signing with google
+  function registerUserWithGoogle() {
+    setIsLoading(true);
+    return signInWithPopup(auth, googleProvider);
   }
 
   // sign out user from firebase
@@ -57,6 +66,7 @@ const AuthProvider = ({ children }) => {
     signInUser,
     registerWithEmailPass,
     updateUserProfile,
+    registerUserWithGoogle,
     logOutUser,
   };
   return (

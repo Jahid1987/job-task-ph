@@ -1,14 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Products from "../components/Products";
+import Pagination from "../components/Pagination";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [itemPerPage, setItemPerPage] = useState(10);
+  const [itemPerPage, setItemPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(0);
-  const count = 76;
+  const count = 50;
 
   const pageNumber = Math.ceil(count / itemPerPage);
   const pages = [...Array(pageNumber).keys()];
@@ -16,7 +17,9 @@ const Home = () => {
   useEffect(() => {
     (async function () {
       try {
-        const { data } = await axios.get(`http://localhost:5000/products`);
+        const { data } = await axios.get(
+          `http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}`
+        );
         setProducts(data);
       } catch (error) {
         console.error(error);
@@ -24,70 +27,29 @@ const Home = () => {
         setLoading(false);
       }
     })();
-  }, []);
-
-  // pagination
-  // handle per page items
-  function handlePerPageItem(e) {
-    setItemPerPage(parseInt(e.target.value));
-    setCurrentPage(0);
-  }
-
-  // handle previous page
-  function handlePrevPage() {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
-    }
-  }
-  // handle next page
-  function handleNextPage() {
-    if (currentPage < pages.length - 1) {
-      setCurrentPage(currentPage + 1);
-    }
-  }
+  }, [currentPage, itemPerPage]);
 
   // fall back before data is loading...
   if (loading) return <p>Loading...</p>;
+
   return (
-    <div>
-      {/* all products showing  */}
-      <Products products={products} />
-      {/* pagination  */}
-      <div className="text-center my-2">
-        <button
-          className="btn btn-sm btn-outline btn-success"
-          onClick={handlePrevPage}
-        >
-          Prev
-        </button>
-        {pages.map((page) => (
-          <button
-            onClick={() => setCurrentPage(page)}
-            className={currentPage === page ? "text-green-500 px-2" : "px-2"}
-            key={page}
-          >
-            {page}
-          </button>
-        ))}
-        <button
-          className="btn btn-sm btn-outline btn-success"
-          onClick={handleNextPage}
-        >
-          Next
-        </button>
-        <select
-          className="btn btn-sm ml-2 btn-outline btn-success"
-          onChange={handlePerPageItem}
-          value={itemPerPage}
-          id=""
-        >
-          <option value="5">5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
-          <option value="40">40</option>
-          <option value="50">50</option>
-        </select>
+    <div className="flex flex-col lg:flex-row gap-2 lg:gap-4">
+      {/* filtering side  */}
+      <div>filtering side here</div>
+
+      {/* products side  */}
+      <div>
+        {/* all products showing  */}
+        <Products products={products} />
+
+        {/* pagination  */}
+        <Pagination
+          setItemPerPage={setItemPerPage}
+          itemPerPage={itemPerPage}
+          pages={pages}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
       </div>
     </div>
   );

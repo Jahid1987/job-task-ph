@@ -42,7 +42,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className="space-y-2 menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             {navLinks}
           </ul>
@@ -51,7 +51,7 @@ const Navbar = () => {
         <Link to="/">My Shop</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{navLinks}</ul>
+        <ul className="menu menu-horizontal px-1 space-x-2">{navLinks}</ul>
       </div>
       <div className="navbar-end">
         {user ? (

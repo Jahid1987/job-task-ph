@@ -12,31 +12,34 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [count, setCount] = useState(0);
   const [terms, setTerms] = useState({
-    name: null,
+    name: "",
     brands: [],
     categories: [],
-    priceMin: null,
-    priceMax: null,
+    priceMin: "",
+    priceMax: "",
   });
+  const [priceSort, setPriceSort] = useState("");
+  const [dateSort, setDateSort] = useState("");
   // const count = 50;
   const pageNumber = Math.ceil(count / itemPerPage);
   const pages = [...Array(pageNumber).keys()];
 
   useEffect(() => {
     (async function () {
-      console.log(terms);
-
       try {
+        // console.log(sortItems);
         // fetching total amount of products to estimate total pages
         const { data: totalProducts } = await axios.get(
-          `http://localhost:5000/productcount?terms=${JSON.stringify(terms)}`
+          `https://my-shop-server-2.vercel.app/productcount?terms=${JSON.stringify(
+            terms
+          )}`
         );
         setCount(totalProducts.count);
 
         // fetching all products
 
         const { data: products } = await axios.get(
-          `http://localhost:5000/products?page=${currentPage}&size=${itemPerPage}&terms=${JSON.stringify(
+          `https://my-shop-server-2.vercel.app/products?dateSort=${dateSort}&priceSort=${priceSort}&page=${currentPage}&size=${itemPerPage}&terms=${JSON.stringify(
             terms
           )}`
         );
@@ -47,7 +50,7 @@ const Home = () => {
         setLoading(false);
       }
     })();
-  }, [currentPage, itemPerPage, terms]);
+  }, [currentPage, itemPerPage, terms, dateSort, priceSort]);
 
   // fall back before data is loading...
   if (loading) return <p>Loading...</p>;
@@ -56,7 +59,12 @@ const Home = () => {
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-2 lg:gap-4">
       {/* left side: filtering side  */}
       <div className="lg:col-span-3">
-        <Terms terms={terms} setTerms={setTerms} />
+        <Terms
+          setDateSort={setDateSort}
+          setPriceSort={setPriceSort}
+          terms={terms}
+          setTerms={setTerms}
+        />
       </div>
 
       {/* right side: products*/}

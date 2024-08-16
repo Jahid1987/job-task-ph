@@ -9,7 +9,7 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const [itemPerPage, setItemPerPage] = useState(6);
+  const [itemPerPage, setItemPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
   const [count, setCount] = useState(0);
   const [terms, setTerms] = useState({

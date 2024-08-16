@@ -48,8 +48,4 @@
    npm run dev
    ```
 
-```
-
 The application will start at `http://localhost:5173/`.
-
-```

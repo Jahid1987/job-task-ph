@@ -1,11 +1,12 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
     <footer className="footer footer-center bg-base-200 text-base-content rounded p-10">
       <nav className="grid grid-flow-col gap-4">
-        <a className="link link-hover">About us</a>
-        <a className="link link-hover">Contact</a>
-        <a className="link link-hover">Jobs</a>
-        <a className="link link-hover">Press kit</a>
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+        <Link to="/contact">Contact</Link>
       </nav>
       <nav>
         <div className="grid grid-flow-col gap-4">
@@ -46,7 +47,7 @@ const Footer = () => {
       </nav>
       <aside>
         <p>
-          Copyright © {new Date().getFullYear()} - All right reserved by ACME
+          Copyright © {new Date().getFullYear()} - All right reserved by My Shop
           Industries Ltd
         </p>
       </aside>

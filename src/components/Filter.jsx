@@ -2,7 +2,7 @@ import { useDebouncedCallback } from "use-debounce";
 import { brands } from "../utils/brands";
 import { categories } from "../utils/categories";
 
-const Terms = ({ terms, setTerms, setPriceSort, setDateSort }) => {
+const Filter = ({ terms, setTerms }) => {
   const handleSetTerms = useDebouncedCallback((event, term) => {
     event.preventDefault();
 
@@ -27,18 +27,8 @@ const Terms = ({ terms, setTerms, setPriceSort, setDateSort }) => {
     }
   }, 300);
 
-  function handleSort(event, term) {
-    event.preventDefault();
-    if (term === "price") {
-      setPriceSort(event.target.value);
-      setDateSort("");
-    } else {
-      setDateSort(event.target.value);
-      setPriceSort("");
-    }
-  }
   return (
-    <div className="p-3 border rounded-md">
+    <>
       <h3 className="text-center my-3 text-xl font-bold">Filter Products</h3>
 
       {/* name search  */}
@@ -140,78 +130,8 @@ const Terms = ({ terms, setTerms, setPriceSort, setDateSort }) => {
           />
         </label>
       </div>
-      <h3 className="text-center my-3 text-xl font-bold">Sort Products</h3>
-      {/* Price filterign */}
-      <div>
-        <div className="form-control">
-          <label className="label cursor-pointer">
-            <span className="label-text">Low to High</span>
-            <input
-              onChange={(event) => handleSort(event, "price")}
-              type="radio"
-              name="price"
-              value="1"
-              className="radio checked:bg-red-500"
-            />
-          </label>
-        </div>
-        <div className="form-control">
-          <label className="label cursor-pointer">
-            <span className="label-text">Hight to Low</span>
-            <input
-              onChange={(event) => handleSort(event, "price")}
-              type="radio"
-              name="price"
-              value="-1"
-              className="radio checked:bg-blue-500"
-            />
-          </label>
-        </div>
-      </div>
-      {/* Created At filterign */}
-      <div>
-        <div className="form-control">
-          <label className="label cursor-pointer">
-            <span className="label-text">Newest to Oldest</span>
-            <input
-              onChange={(event) => handleSort(event, "createdAt")}
-              type="radio"
-              name="createdAt"
-              value="-1"
-              className="radio checked:bg-red-500"
-            />
-          </label>
-        </div>
-        <div className="form-control">
-          <label className="label cursor-pointer">
-            <span className="label-text">Oldest to Newest</span>
-            <input
-              onChange={(event) => handleSort(event, "createdAt")}
-              type="radio"
-              name="createdAt"
-              value="1"
-              className="radio checked:bg-blue-500"
-            />
-          </label>
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 
-export default Terms;
-
-// const terms = {
-//     name: "Classic",
-//     brands: [
-//       "SoundWave",
-//       "CaseMaster",
-//       "TechTime",
-//     ],
-//     categories: [
-//       "Electronics",
-//       "Furniture",
-//     ],
-//     priceMin: 40,
-//     priceMax: 90,
-//   };
+export default Filter;

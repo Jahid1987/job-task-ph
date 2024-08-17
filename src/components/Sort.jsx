@@ -1,17 +1,25 @@
+import { useState } from "react";
+
 const Sort = ({ setPriceSort, setDateSort }) => {
+  const [selectedPrice, setSelectedPrice] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+
   function handleSort(event, term) {
     event.preventDefault();
     if (term === "price") {
       setPriceSort(event.target.value);
       setDateSort("");
+      setSelectedPrice(event.target.value);
+      setSelectedDate("");
     } else {
       setDateSort(event.target.value);
       setPriceSort("");
+      setSelectedDate(event.target.value);
+      setSelectedPrice("");
     }
   }
   return (
     <>
-      {" "}
       <h3 className="text-center my-3 text-xl font-bold">Sort Products</h3>
       {/* Price sorting */}
       <div>
@@ -21,9 +29,10 @@ const Sort = ({ setPriceSort, setDateSort }) => {
             <input
               onChange={(event) => handleSort(event, "price")}
               type="radio"
-              name="price"
+              name="priceSort"
               value="1"
-              className="radio checked:bg-red-500"
+              className="radio checked:bg-blue-500"
+              checked={selectedPrice === "1"}
             />
           </label>
         </div>
@@ -33,9 +42,10 @@ const Sort = ({ setPriceSort, setDateSort }) => {
             <input
               onChange={(event) => handleSort(event, "price")}
               type="radio"
-              name="price"
+              name="priceSort"
               value="-1"
               className="radio checked:bg-blue-500"
+              checked={selectedPrice === "-1"}
             />
           </label>
         </div>
@@ -48,9 +58,10 @@ const Sort = ({ setPriceSort, setDateSort }) => {
             <input
               onChange={(event) => handleSort(event, "createdAt")}
               type="radio"
-              name="createdAt"
+              name="dateSort"
               value="-1"
-              className="radio checked:bg-red-500"
+              className="radio checked:bg-blue-500"
+              checked={selectedDate === "-1"}
             />
           </label>
         </div>
@@ -60,9 +71,10 @@ const Sort = ({ setPriceSort, setDateSort }) => {
             <input
               onChange={(event) => handleSort(event, "createdAt")}
               type="radio"
-              name="createdAt"
+              name="dateSort"
               value="1"
               className="radio checked:bg-blue-500"
+              checked={selectedDate === "1"}
             />
           </label>
         </div>
